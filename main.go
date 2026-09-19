@@ -1,5 +1,4 @@
 package main
-
 import "fmt"
 
 // Create a vehicle stuct
@@ -44,8 +43,10 @@ func main() {
 
 	}
 
-}		// End of main
+}	// End of main
 
+
+// Get functions 
 func GetVehicleID(object1 Vehicle) {
 	fmt.Println("Vehicle ID: ",object1.ID)
 }
