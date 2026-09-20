@@ -34,7 +34,7 @@ func main() {
 
 		// Print characteristics of vehicle object
 		GetVehicleID(object1)
-		GetVehicleBattery(object1)
+		fmt.Println("Battery Low: ",IsBatteryLow(object1))
 		GetVehicleSpeed(object1)
 		GetVehicleTemperature(object1)
 		GetVehicleLocation(object1)
@@ -50,18 +50,28 @@ func main() {
 func GetVehicleID(object1 Vehicle) {
 	fmt.Println("Vehicle ID: ",object1.ID)
 }
-func GetVehicleBattery(object1 Vehicle){
-	fmt.Println("Battery: ",object1.Battery)
+
+func IsBatteryLow(object1 Vehicle) bool {
+	
+	if (object1.Battery < 45){
+		return true
+	} else {
+		return false
+	}
 }
-func GetVehicleSpeed(object1 Vehicle){
+
+func GetVehicleSpeed(object1 Vehicle) {
 	fmt.Println("Speed: ",object1.Speed)
 }
+
 func GetVehicleTemperature(object1 Vehicle){
 	fmt.Println("Temperature: ",object1.Temperature)
 }
+
 func GetVehicleLocation(object1 Vehicle){
 	fmt.Println("Location: ",object1.Location)
 }
+
 func GetVehicleStatus(object1 Vehicle){
 	fmt.Println("Status: ",object1.Status)
 }
