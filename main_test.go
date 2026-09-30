@@ -5,7 +5,6 @@ import (
 )
 
 func TestIsBatteryLow(t *testing.T) {
-
 	testCases := []struct {
 		name     string
 		vehicle  Vehicle
@@ -41,3 +40,9 @@ func TestIsBatteryLow(t *testing.T) {
 		})
 	}
 }
+
+func TestIsOverheating(t *testing.T) {}
+
+func TestGetBatteryStatus(t *testing.T) {}
+
+func TestVehicleStatus(t *testing.T) {}
