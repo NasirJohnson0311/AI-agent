@@ -90,4 +90,35 @@ func TestGetBatteryStatus(t *testing.T) {
 	}
 }
 
-func TestVehicleStatus(t *testing.T) {}
+func TestVehicleStatus(t *testing.T) {
+	testCases := []struct {
+		name     string
+		vehicle  Vehicle
+		expected string
+	}{
+		{
+			name:     "LowBatteryStatus",
+			vehicle:  Vehicle{"V-103", 28.23, 26, 90, "New York", "ACTIVE"},
+			expected: "LOW_BATTERY",
+		},
+		{
+			name:     "OverheatingVehicleStatus",
+			vehicle:  Vehicle{"V-104", 80.0, 33, 59, "Oklahoma", "ACTIVE"},
+			expected: "OVERHEATING",
+		},
+		{
+			name:     "HealthyVehicleStatus",
+			vehicle:  Vehicle{"V-104", 80.0, 33, 59, "Oklahoma", "ACTIVE"},
+			expected: "HEALTHY",
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			result := VehicleStatus(tc.vehicle)
+			if result != tc.expected {
+				t.Errorf("Expected %v, actual %v", tc.expected, result)
+			}
+		})
+	}
+}
