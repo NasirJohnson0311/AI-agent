@@ -103,7 +103,7 @@ func TestVehicleStatus(t *testing.T) {
 		},
 		{
 			name:     "OverheatingVehicleStatus",
-			vehicle:  Vehicle{"V-104", 80.0, 33, 59, "Oklahoma", "ACTIVE"},
+			vehicle:  Vehicle{"V-100", 99.0, 42, 100, "Austin", "ACTIVE"},
 			expected: "OVERHEATING",
 		},
 		{
