@@ -62,6 +62,32 @@ func TestIsOverheating(t *testing.T) {
 
 }
 
-func TestGetBatteryStatus(t *testing.T) {}
+func TestGetBatteryStatus(t *testing.T) {
+	testCases := []struct {
+		name     string
+		vehicle  Vehicle
+		expected string
+	}{
+		{
+			name:     "NormalBatteryStatus",
+			vehicle:  Vehicle{"V-100", 99.0, 42, 100, "Austin", "ACTIVE"},
+			expected: "NORMAL",
+		},
+		{
+			name:     "LowBatteryStatus",
+			vehicle:  Vehicle{"V-103", 28.23, 26, 90, "New York", "ACTIVE"},
+			expected: "LOW_BATTERY",
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			result := GetBatteryStatus(tc.vehicle)
+			if tc.expected != result {
+				t.Errorf("Expected %v, actual %v", tc.expected, result)
+			}
+		})
+	}
+}
 
 func TestVehicleStatus(t *testing.T) {}
