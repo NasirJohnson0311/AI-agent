@@ -36,6 +36,7 @@ func main() {
 		line := scanner.Text()                // Get text read from scanner
 		lineSlice := strings.Split(line, ",") // Split text up by comma
 		vehicleOccurences[lineSlice[0]]++
+		scanner.Err()
 	}
 
 	// GetTotalEvents(vehicleOccurences) -> int
