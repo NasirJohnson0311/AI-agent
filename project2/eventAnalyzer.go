@@ -1,8 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"os"
+)
 
-func EventAnalyzer() {
+func main() {
 
 	/*
 		This project is meant to gather information about vehicle data and analyze it
@@ -12,7 +16,27 @@ func EventAnalyzer() {
 		Tests will be conducted at the end of implementation to make sure everything works
 	*/
 
-	fmt.Println("Hello world")
+	fmt.Println("Inside of event analyzer")
+
+	// Open file using package, store store results in file if correctly opened, if not store in file error
+	file, fileError := os.Open("eventData.txt")
+
+	// Check to see if file error had returned something
+	if fileError != nil {
+		panic(fileError)
+	} else {
+		fmt.Println("No errors %v", file)
+	}
+
+	// Create a new scanner for our file using bufio
+	scanner := bufio.NewScanner(file)
+
+	// While scanner is still reading file
+	for scanner.Scan() {
+		line := scanner.Text() // Grab text that scanner has just received
+		fmt.Println(line)
+	}
+
 }
 
 func GetTotalEvents()       {} // This function will return the total number of events
