@@ -2,41 +2,46 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"os"
+	"strings"
 )
+
+/*
+	This project is meant to gather information about vehicle data and analyze it
+	Vehicle data is kept in eventData.txt
+	Each event must be read from this file and stored within a map
+		Map: [Vehicle -> Event number] + [Event -> Occurences]
+	Tests will be conducted at the end of implementation to make sure everything works
+*/
+
+type Event struct {
+	vehicle string
+	event   string
+	value   int
+}
 
 func main() {
 
-	/*
-		This project is meant to gather information about vehicle data and analyze it
-		Vehicle data is kept in eventData.txt
-		Each event must be read from this file and stored within a map
-			Map: [Vehicle -> Event number] + [Event -> Occurences]
-		Tests will be conducted at the end of implementation to make sure everything works
-	*/
+	vehicleOccurences := make(map[string]int)
 
-	fmt.Println("Inside of event analyzer")
+	file, fileError := os.Open("eventData.txt") // Open file
 
-	// Open file using package, store store results in file if correctly opened, if not store in file error
-	file, fileError := os.Open("eventData.txt")
-
-	// Check to see if file error had returned something
-	if fileError != nil {
+	if fileError != nil { // File error handling
 		panic(fileError)
-	} else {
-		fmt.Println("No errors %v", file)
 	}
 
-	// Create a new scanner for our file using bufio
-	scanner := bufio.NewScanner(file)
+	scanner := bufio.NewScanner(file) // Create new scanner
 
-	// While scanner is still reading file
-	for scanner.Scan() {
-		line := scanner.Text() // Grab text that scanner has just received
-		fmt.Println(line)
+	for scanner.Scan() { // While scanner is reading file
+		line := scanner.Text()                // Get text read from scanner
+		lineSlice := strings.Split(line, ",") // Split text up by comma
+		vehicleOccurences[lineSlice[0]]++
 	}
 
+	// GetTotalEvents(vehicleOccurences) -> int
+	// VehicleEvents(vehicleOccurences)
+	// MostEvents(vehicleOccurences) -> string
+	// GetOverheatingEvents -> int
 }
 
 func GetTotalEvents()       {} // This function will return the total number of events

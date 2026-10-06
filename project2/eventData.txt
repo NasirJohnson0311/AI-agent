@@ -1,7 +1,7 @@
-Vehicle 101 
-Vehicle 102
-Vehicle 101
-Vehicle 103
-Vehicle 104
-Vehicle 102
-Vehicle 101
+Vehicle-101,BATTERY,95
+Vehicle-102,BATTERY,32
+Vehicle-101,TEMPERATURE,75
+Vehicle-103,OVERHEATING,105
+Vehicle-104,TEMPERATURE,90
+Vehicle-102,BATTERY,13
+Vehicle-101,OVERHEATING,120
