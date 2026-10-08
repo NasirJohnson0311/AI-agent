@@ -2,8 +2,10 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"strings"
+	"time"
 )
 
 /*
@@ -15,38 +17,102 @@ import (
 */
 
 type Event struct {
-	vehicle string
-	event   string
-	value   int
+	VehicleID string
+	Type      string
+	Value     float64
+	Timestamp time.Time
 }
 
 func main() {
 
-	vehicleOccurences := make(map[string]int)
+	events := []Event{}
 
 	file, fileError := os.Open("eventData.txt") // Open file
-
-	if fileError != nil { // File error handling
+	if fileError != nil {                       // File error handling
 		panic(fileError)
 	}
 
 	scanner := bufio.NewScanner(file) // Create new scanner
+	for scanner.Scan() {              // While scanner is reading file
+		currLine := scanner.Text()                // Get text read from scanner
+		lineSlice := strings.Split(currLine, ",") // Split text up by comma
 
-	for scanner.Scan() { // While scanner is reading file
-		line := scanner.Text()                // Get text read from scanner
-		lineSlice := strings.Split(line, ",") // Split text up by comma
-		vehicleOccurences[lineSlice[0]]++
+		newEvent := Event{lineSlice[0], lineSlice[1], float64(currLine[3]), time.Now()}
+		events = append(events, newEvent)
+
 		scanner.Err()
 	}
 
-	// GetTotalEvents(vehicleOccurences) -> int
-	// VehicleEvents(vehicleOccurences)
-	// MostEvents(vehicleOccurences) -> string
-	// GetOverheatingEvents -> int
+	eventMap := make(map[string]int)
+	for _, event := range events {
+		eventMap[event.VehicleID]++
+	}
+
+	GetTotalEvents(events)
+	GetVehicleEvents(eventMap)
+	GetMostEvents(eventMap)
+	GetOverheatingEvents(events)
+	GetVehiclesLatestEvent(events)
+
 }
 
-func GetTotalEvents()       {} // This function will return the total number of events
-func VehicleEvents()        {} // This function will list the number of events each vehicle has
-func MostEvents()           {} // This function will return the vehicle with the most events
-func GetOverheatingEvents() {} // This function will get the number of overheating events
-func VehiclesLatestEvent()  {} // This function will get the latest event for each vehicle
+func GetTotalEvents(events []Event) { // This function will return the total number of events
+
+	numEvents := 0
+	for numEvents < len(events) {
+		numEvents++
+	}
+
+	fmt.Printf("Total events: %v \n", numEvents)
+	fmt.Println()
+}
+
+func GetVehicleEvents(eventMap map[string]int) { // This function will list the number of events each vehicle has
+
+	for event := range eventMap {
+		fmt.Printf("%v has %v events", event, eventMap[event])
+		fmt.Println()
+	}
+
+	fmt.Println()
+
+}
+
+func GetMostEvents(eventMap map[string]int) { // This function will return the vehicle with the most events
+
+	currMost := ""
+	numEvents := 0
+
+	for currEvent := range eventMap {
+		if eventMap[currEvent] > numEvents {
+			currMost = currEvent
+			numEvents = eventMap[currEvent]
+		}
+	}
+
+	fmt.Printf("%v has the most events (%v)\n", currMost, numEvents)
+	fmt.Println()
+
+}
+
+func GetOverheatingEvents(events []Event) { // This function will get the number of overheating events
+
+	numOverheatingEvents := 0
+
+	for _, event := range events {
+		if event.Type == "OVERHEATING" {
+			numOverheatingEvents++
+		}
+	}
+
+	fmt.Printf("Overheating events: %v \n", numOverheatingEvents)
+	fmt.Println()
+
+}
+
+func GetVehiclesLatestEvent(events []Event) { // This function will get the latest event for each vehicle
+
+	for _, event := range events {
+		fmt.Println(event.Timestamp)
+	}
+}
