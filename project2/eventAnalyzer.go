@@ -112,7 +112,15 @@ func GetOverheatingEvents(events []Event) { // This function will get the number
 
 func GetVehiclesLatestEvent(events []Event) { // This function will get the latest event for each vehicle
 
-	for _, event := range events {
-		fmt.Println(event.Timestamp)
+	eventMap := make(map[string]int)
+
+	for i := range events {
+		eventMap[events[i].VehicleID] = i
 	}
+
+	for key := range eventMap {
+		fmt.Printf("%v last event: %v at %v", events[eventMap[key]].VehicleID, events[eventMap[key]].Type, events[eventMap[key]].Timestamp)
+		fmt.Println()
+	}
+
 }
