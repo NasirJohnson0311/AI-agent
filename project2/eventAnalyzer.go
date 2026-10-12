@@ -37,11 +37,10 @@ func main() {
 		currLine := scanner.Text()                // Get text read from scanner
 		lineSlice := strings.Split(currLine, ",") // Split text up by comma
 
-		newEvent := Event{lineSlice[0], lineSlice[1], float64(currLine[3]), time.Now()}
+		newEvent := Event{lineSlice[0], lineSlice[1], float64(currLine[2]), time.Now()}
 		events = append(events, newEvent)
-
-		scanner.Err()
 	}
+	scanner.Err()
 
 	eventMap := make(map[string]int)
 	for _, event := range events {
@@ -57,7 +56,6 @@ func main() {
 }
 
 func GetTotalEvents(events []Event) { // This function will return the total number of events
-
 	numEvents := 0
 	for numEvents < len(events) {
 		numEvents++
@@ -68,18 +66,15 @@ func GetTotalEvents(events []Event) { // This function will return the total num
 }
 
 func GetVehicleEvents(eventMap map[string]int) { // This function will list the number of events each vehicle has
-
 	for event := range eventMap {
 		fmt.Printf("%v has %v events", event, eventMap[event])
 		fmt.Println()
 	}
 
 	fmt.Println()
-
 }
 
 func GetMostEvents(eventMap map[string]int) { // This function will return the vehicle with the most events
-
 	currMost := ""
 	numEvents := 0
 
@@ -92,11 +87,9 @@ func GetMostEvents(eventMap map[string]int) { // This function will return the v
 
 	fmt.Printf("%v has the most events (%v)\n", currMost, numEvents)
 	fmt.Println()
-
 }
 
 func GetOverheatingEvents(events []Event) { // This function will get the number of overheating events
-
 	numOverheatingEvents := 0
 
 	for _, event := range events {
@@ -111,7 +104,6 @@ func GetOverheatingEvents(events []Event) { // This function will get the number
 }
 
 func GetVehiclesLatestEvent(events []Event) { // This function will get the latest event for each vehicle
-
 	eventMap := make(map[string]int)
 
 	for i := range events {
@@ -122,5 +114,4 @@ func GetVehiclesLatestEvent(events []Event) { // This function will get the late
 		fmt.Printf("%v last event: %v at %v", events[eventMap[key]].VehicleID, events[eventMap[key]].Type, events[eventMap[key]].Timestamp)
 		fmt.Println()
 	}
-
 }
